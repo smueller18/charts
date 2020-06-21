@@ -73,6 +73,10 @@ spec:
 {{- if .Values.kubelet.serviceMonitor.resource }}
   - port: https-metrics
     scheme: https
+    tlsConfig:
+      caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      insecureSkipVerify: true
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     path: {{ .Values.kubelet.serviceMonitor.resourcePath }}
 {{- if .Values.kubelet.serviceMonitor.resourceMetricRelabelings }}
     metricRelabelings:
